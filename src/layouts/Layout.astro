@@ -1,23 +1,85 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = 'Snackybara FoodHub — crafted snacks and warm bites made with love in the Philippines.',
+  ogImage = '/og-default.jpg',
+  ogType = 'website',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://snackybara.com');
+const fullTitle = title === 'Home' ? 'Snackybara FoodHub' : `${title} | Snackybara FoodHub`;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Primary SEO -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type"        content={ogType} />
+    <meta property="og:title"       content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:site_name"   content="Snackybara FoodHub" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- View Transitions (Astro 7 ClientRouter) -->
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Scroll-reveal observer (runs after every view transition) -->
+    <script>
+      function initReveal() {
+        const elements = document.querySelectorAll<HTMLElement>('.reveal');
+        if (!elements.length) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      }
+
+      // Run on initial load and after every Astro view transition
+      initReveal();
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
+  </body>
+</html>

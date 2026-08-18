@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { Image } from 'astro:assets';
+
+// All real store interior photos
+import store01 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Warm_Sunlight_01.png';
+import store02 from '../assets/Store Images/Snackybara_Store_Interior_Wall_Counter_Stool_Seating_02.jpeg';
+import store03 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Service_Counter_Wide_03.jpeg';
+import store04 from '../assets/Store Images/Snackybara_Store_Interior_Wall_Counter_Stool_Seating_Close_04.jpeg';
+import store05 from '../assets/Store Images/Snackybara_Store_Interior_Front_Window_Mirror_Table_Corner_05.jpeg';
+import store06 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Tables_Framed_Art_Wall_06.jpeg';
+import store07 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Service_Counter_Aisle_07.jpeg';
+import store08 from '../assets/Store Images/Snackybara_Store_Service_Counter_Display_Case_Neon_Logo_08.jpeg';
+import store09 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Tables_Front_Window_Aircon_09.jpeg';
+import store10 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Tables_Framed_Art_Wide_10.jpeg';
+import store11 from '../assets/Store Images/Snackybara_Store_Interior_Front_Window_Aircon_Mirror_Corner_11.jpeg';
+
+const galleryItems = [
+  { src: store01, alt: 'Snackybara dining area bathed in warm sunlight' },
+  { src: store02, alt: 'Snackybara wall counter and stool seating' },
+  { src: store03, alt: 'Snackybara dining area and service counter wide view' },
+  { src: store04, alt: 'Snackybara wall counter stool seating close up' },
+  { src: store05, alt: 'Snackybara front window with mirror and table corner' },
+  { src: store06, alt: 'Snackybara dining tables with framed art on the wall' },
+  { src: store07, alt: 'Snackybara service counter aisle view' },
+  { src: store08, alt: 'Snackybara service counter and display case with neon logo' },
+  { src: store09, alt: 'Snackybara dining tables by front window with aircon' },
+  { src: store10, alt: 'Snackybara dining tables wide view with framed art' },
+  { src: store11, alt: 'Snackybara front window, aircon, mirror, and table corner' },
+];
+---
+
+<Layout
+  title="Gallery"
+  description="Browse the Snackybara FoodHub photo gallery — real store interiors, warm ambiance, and a glimpse of what makes us special."
+>
+  <Navbar />
+
+  <!-- Page hero -->
+  <section class="pt-28 pb-12 sm:pt-36 sm:pb-16 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">A Visual Story</p>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-stone-900 mb-4">Gallery</h1>
+      <p class="text-stone-500 max-w-lg mx-auto leading-relaxed">
+        Step inside Snackybara. Click any photo to view it in full.
+      </p>
+    </div>
+  </section>
+
+  <!-- Masonry gallery grid -->
+  <section class="py-8 pb-20 sm:pb-28 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div id="gallery-grid" class="columns-2 sm:columns-3 lg:columns-4 gap-3 sm:gap-4">
+        {galleryItems.map((item, i) => (
+          <button
+            id={`gallery-item-${i + 1}`}
+            data-index={i}
+            class:list={[
+              'gallery-item break-inside-avoid mb-3 sm:mb-4 w-full block rounded-xl overflow-hidden',
+              'cursor-zoom-in hover:shadow-xl active:scale-[0.99]',
+              'transition-all duration-300 group',
+              `reveal reveal-delay-${(i % 4) + 1}`,
+            ]}
+            aria-label={`Open photo: ${item.alt}`}
+          >
+            <Image
+              src={item.src}
+              alt={item.alt}
+              class="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-500"
+              width={600}
+              loading={i < 4 ? 'eager' : 'lazy'}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox overlay -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-50 bg-black/92 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    aria-modal="true"
+    role="dialog"
+    aria-label="Photo viewer"
+    aria-hidden="true"
+  >
+    <!-- Close button -->
+    <button
+      id="lightbox-close"
+      class="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-200"
+      aria-label="Close photo viewer"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Prev / Next -->
+    <button id="lightbox-prev" class="absolute left-3 sm:left-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-200" aria-label="Previous photo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button id="lightbox-next" class="absolute right-3 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-200" aria-label="Next photo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- Lightbox image display -->
+    <div id="lightbox-content" class="max-w-5xl w-full max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl bg-stone-900 flex items-center justify-center">
+      <img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain" />
+    </div>
+
+    <!-- Caption + Counter -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+      <p id="lightbox-caption" class="text-white/70 text-sm font-body text-center px-4 max-w-md"></p>
+      <p id="lightbox-counter" class="text-white/40 text-xs tabular-nums"></p>
+    </div>
+  </div>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  #lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+</style>
+
+<script>
+  function initLightbox() {
+    const items    = document.querySelectorAll<HTMLElement>('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn  = document.getElementById('lightbox-prev');
+    const nextBtn  = document.getElementById('lightbox-next');
+    const caption  = document.getElementById('lightbox-caption');
+    const counter  = document.getElementById('lightbox-counter');
+    const img      = document.getElementById('lightbox-img') as HTMLImageElement | null;
+    const TOTAL = items.length;
+    if (!lightbox || !items.length || !img) return;
+
+    let current = 0;
+
+    function open(index: number) {
+      current = index;
+      const item = items[index];
+      // Get the <img> inside the button
+      const sourceImg = item.querySelector('img');
+      if (sourceImg && img) {
+        img.src = sourceImg.src;
+        img.alt = sourceImg.alt;
+      }
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (caption) caption.textContent = sourceImg?.alt ?? '';
+      if (counter) counter.textContent = `${index + 1} / ${TOTAL}`;
+      closeBtn?.focus();
+    }
+
+    function close() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function go(dir: 1 | -1) {
+      current = (current + dir + TOTAL) % TOTAL;
+      open(current);
+    }
+
+    items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+    closeBtn?.addEventListener('click', close);
+    prevBtn?.addEventListener('click', () => go(-1));
+    nextBtn?.addEventListener('click', () => go(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
+    });
+  }
+
+  initLightbox();
+  document.addEventListener('astro:page-load', initLightbox);
+</script>

@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { Image } from 'astro:assets';
+import mascot from '../assets/Brand/Snackybara_Mascot_FullBody_Laughing_Beret_Scarf_02.jpeg';
+import identityBoard from '../assets/Snackybara_Flexible_Template_Identity_Board_APPROVED_v3_0.png';
+import storyImg from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Service_Counter_Wide_03.jpeg';
+---
+
+<Layout
+  title="About"
+  description="Learn about Snackybara FoodHub — our story, our passion for food, and the people behind every handcrafted bite."
+>
+  <Navbar />
+
+  <!-- Page hero -->
+  <section class="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden">
+    <div class="absolute inset-0 about-hero-bg" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-cream-50" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-terra-300 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-4">Our Story</p>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+        Made with Heart,<br/><em class="italic font-normal">Shared with Love</em>
+      </h1>
+      <p class="text-stone-200 max-w-xl mx-auto leading-relaxed">
+        Behind every bite is a story — and this is ours.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Brand Story ────────────────────────────────────────────────── -->
+  <section class="py-16 sm:py-24 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Real store photo -->
+        <div class="reveal">
+          <div class="relative">
+            <div class="rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
+              <Image
+                src={storyImg}
+                alt="Snackybara FoodHub dining area and service counter"
+                class="w-full h-full object-cover"
+                width={720}
+                height={540}
+              />
+            </div>
+            <!-- Decorative element -->
+            <div class="absolute -bottom-5 -left-5 w-20 h-20 bg-terra-100 rounded-full -z-10" aria-hidden="true"></div>
+            <div class="absolute -top-5 -right-5 w-14 h-14 bg-stone-200 rounded-full -z-10" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Copy -->
+        <div class="reveal reveal-delay-2">
+          <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-4">How It All Started</p>
+          <h2 class="font-display text-3xl sm:text-4xl text-stone-900 leading-tight mb-6">
+            The Snackybara Story
+          </h2>
+          <div class="space-y-4 text-stone-600 leading-relaxed">
+            <p>
+              [Your brand story goes here — share how Snackybara FoodHub was born, what inspired you to start this food business, and what makes it special to you.]
+            </p>
+            <p>
+              [A second paragraph about the journey — any challenges you overcame, milestones you've reached, or the community you've built around your food.]
+            </p>
+            <p>
+              [A closing paragraph about what drives you every day — your commitment to quality, your love for your customers, or your vision for where Snackybara is headed.]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Values ────────────────────────────────────────────────────── -->
+  <section class="py-16 sm:py-24 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">What We Stand For</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-stone-900">Our Values</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Value 1 -->
+        <div class="reveal reveal-delay-1 bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="w-14 h-14 bg-terra-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b85540" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><path d="M12 2v4"/><path d="M4.93 7.93 7.76 10.76"/><path d="M19.07 7.93 16.24 10.76"/><circle cx="12" cy="17" r="4"/><path d="M12 13v4"/><path d="M8 17h8"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-stone-900 mb-3">Fresh & Homemade</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Every item is made fresh with quality ingredients. No shortcuts — just real, honest food.
+          </p>
+        </div>
+
+        <!-- Value 2 -->
+        <div class="reveal reveal-delay-2 bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="w-14 h-14 bg-terra-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b85540" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-stone-900 mb-3">Made with Heart</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            More than a business — it's a passion. Every bite carries the care and love we put into making it.
+          </p>
+        </div>
+
+        <!-- Value 3 -->
+        <div class="reveal reveal-delay-3 bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="w-14 h-14 bg-terra-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b85540" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-stone-900 mb-3">Community First</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            We serve our neighbors, our friends, our community. Snackybara is a place where everyone feels welcome.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Team / Owner ──────────────────────────────────────────────── -->
+  <section class="py-16 sm:py-24 bg-cream-50">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">The People Behind the Food</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-stone-900">Meet the Team</h2>
+      </div>
+
+      <!-- Mascot card -->
+      <div class="reveal reveal-delay-1 bg-white rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row gap-8 items-center shadow-sm">
+        <div class="shrink-0">
+          <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-cream-100">
+            <Image
+              src={mascot}
+              alt="Snackybara mascot — the friendly capybara in a beret"
+              class="w-full h-full object-cover object-top"
+              width={144}
+              height={144}
+            />
+          </div>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl font-semibold text-stone-900 mb-1">[Owner Name]</h3>
+          <p class="text-terra-500 text-sm font-medium mb-4">Founder &amp; Head of Everything Delicious</p>
+          <p class="text-stone-500 leading-relaxed text-sm">
+            [A short, warm introduction about the owner — their background, what drives them, and what they hope every customer feels when they enjoy Snackybara food.]
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Brand Identity Board ──────────────────────────────────────── -->
+  <section class="py-16 sm:py-24 bg-stone-50">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-12 reveal">
+        <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">Brand Identity</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-stone-900">Our Brand</h2>
+        <p class="text-stone-500 max-w-md mx-auto mt-3 text-sm leading-relaxed">Warm, playful, and unmistakably Snackybara.</p>
+      </div>
+      <div class="reveal reveal-delay-1 rounded-2xl overflow-hidden shadow-lg">
+        <Image
+          src={identityBoard}
+          alt="Snackybara brand identity board showing logo, colors, and mascot"
+          class="w-full h-auto"
+          width={1200}
+        />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .about-hero-bg {
+    background: linear-gradient(135deg, #3d3028 0%, #5e4e42 40%, #7c2d1e 100%);
+    background-size: 200% 200%;
+    animation: about-shift 10s ease infinite;
+  }
+  @keyframes about-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-hero-bg { animation: none; }
+  }
+</style>

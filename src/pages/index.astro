@@ -1,11 +1,279 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Hero & section images
+import heroImage from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Warm_Sunlight_01.png';
+import brandStoryImage from '../assets/Store Images/Snackybara_Store_Interior_Dining_Tables_Framed_Art_Wide_10.jpeg';
+
+// Gallery strip — store interior shots for the preview
+import galleryImg1 from '../assets/Store Images/Snackybara_Store_Service_Counter_Display_Case_Neon_Logo_08.jpeg';
+import galleryImg2 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Area_Service_Counter_Wide_03.jpeg';
+import galleryImg3 from '../assets/Store Images/Snackybara_Store_Interior_Wall_Counter_Stool_Seating_02.jpeg';
+import galleryImg4 from '../assets/Store Images/Snackybara_Store_Interior_Dining_Tables_Front_Window_Aircon_09.jpeg';
+
+// Featured food items (With Background lifestyle shots)
+import featuredImg1 from '../assets/Food Images/With Background/Snacks/Snackybara_Snack_Loaded_Beef_Nachos_Cheese_Fresh_Toppings.jpeg';
+import featuredImg2 from '../assets/Food Images/With Background/Milkteas/Snackybara_Milk_Tea_Okinawa_Bara_Cloud.jpeg';
+import featuredImg3 from '../assets/Food Images/With Background/Pasta/Snackybara_Pasta_Creamy_Carbonara_Bacon_Garlic_Bread.jpeg';
+
+const featuredItems = [
+  {
+    name: 'Loaded Beef Nachos',
+    description: 'Crunchy tortilla chips piled with seasoned beef, melted cheese, and fresh toppings.',
+    badge: 'Popular',
+    image: featuredImg1,
+    alt: 'Loaded Beef Nachos with cheese and fresh toppings',
+  },
+  {
+    name: 'Okinawa Bara Cloud',
+    description: 'Rich Okinawa brown sugar milk tea crowned with our signature velvety Bara Cloud.',
+    badge: 'Bestseller',
+    image: featuredImg2,
+    alt: 'Okinawa Bara Cloud milk tea',
+  },
+  {
+    name: 'Creamy Carbonara',
+    description: 'Rich creamy carbonara with crispy bacon, served with toasted garlic bread.',
+    badge: 'Must Try',
+    image: featuredImg3,
+    alt: 'Creamy Carbonara with garlic bread',
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Home"
+  description="Snackybara FoodHub — crafted snacks and warm bites made with love in the Philippines. Discover our menu and visit us today."
+>
+  <Navbar />
+
+  <!-- ─── Hero ─────────────────────────────────────────────────────── -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Real hero background image -->
+    <div class="absolute inset-0" aria-hidden="true">
+      <Image
+        src={heroImage}
+        alt="Snackybara FoodHub dining area bathed in warm sunlight"
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/65" aria-hidden="true"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-5 max-w-3xl mx-auto pt-20">
+      <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.08] mb-6 opacity-0 animate-fade-in" style="animation-delay: 0.5s; animation-fill-mode: forwards;">
+        Crafted with Care,<br/>
+        <em class="font-normal italic">Served with Heart.</em>
+      </h1>
+      <p class="font-body text-stone-200 text-base sm:text-lg leading-relaxed max-w-lg mx-auto mb-10 opacity-0 animate-fade-in" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
+        Every bite tells a story of warmth, tradition, and a love for good food shared with good people.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in" style="animation-delay: 1.0s; animation-fill-mode: forwards;">
+        <a
+          href="/menu"
+          id="hero-cta-primary"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-terra-500 text-white font-semibold text-base hover:bg-terra-600 hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-terra-900/30"
+        >
+          View Our Menu
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a
+          href="/about"
+          id="hero-cta-secondary"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/50 text-white font-semibold text-base hover:border-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all duration-200"
+        >
+          Our Story
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 opacity-0 animate-fade-in" style="animation-delay: 1.5s; animation-fill-mode: forwards;" aria-hidden="true">
+      <span class="text-xs uppercase tracking-widest font-body">Scroll</span>
+      <div class="w-px h-8 bg-white/30 animate-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── Featured Items ────────────────────────────────────────────── -->
+  <section id="featured" class="py-20 sm:py-28 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">Our Offerings</p>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-stone-900 mb-4">A Taste of What We Offer</h2>
+        <p class="text-stone-500 max-w-md mx-auto">Handcrafted with love and quality ingredients — a small sample of what awaits you.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {featuredItems.map((item, i) => (
+          <article class:list={['reveal', `reveal-delay-${i + 1}`, 'group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1']}>
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.alt}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                width={640}
+                height={480}
+              />
+            </div>
+            {item.badge && (
+              <div class="relative">
+                <span class="absolute -top-4 left-4 px-3 py-1 bg-terra-500 text-white text-xs font-semibold rounded-full shadow-sm">
+                  {item.badge}
+                </span>
+              </div>
+            )}
+            <div class="p-6 pt-5">
+              <h3 class="font-display text-xl font-semibold text-stone-900 mb-2 group-hover:text-terra-600 transition-colors">
+                {item.name}
+              </h3>
+              <p class="text-stone-500 text-sm leading-relaxed">{item.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="/menu" class="inline-flex items-center gap-2 text-terra-600 font-semibold hover:text-terra-700 hover:gap-3 transition-all duration-200">
+          See Full Menu
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Brand Story Teaser ────────────────────────────────────────── -->
+  <section id="about-teaser" class="py-20 sm:py-28 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Real store photo -->
+        <div class="reveal order-2 lg:order-1">
+          <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <Image
+              src={brandStoryImage}
+              alt="Snackybara FoodHub dining area with warm lighting and framed artwork"
+              class="w-full object-cover aspect-[4/3]"
+              width={720}
+              height={540}
+            />
+            <!-- Decorative corner accent -->
+            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-terra-100 rounded-full opacity-60 -z-10" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="reveal reveal-delay-2 order-1 lg:order-2">
+          <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-4">Our Story</p>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-stone-900 leading-tight mb-6">
+            Born from a<br/><em class="italic font-normal text-terra-600">Love of Food</em>
+          </h2>
+          <p class="text-stone-600 leading-relaxed mb-4">
+            [Your brand story goes here — share how Snackybara began, what drives your passion for food, and what makes your snacks special.]
+          </p>
+          <p class="text-stone-600 leading-relaxed mb-8">
+            [A second paragraph about your mission, values, or what customers can expect when they visit or order from Snackybara.]
+          </p>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-terra-500 text-terra-600 font-semibold hover:bg-terra-500 hover:text-white hover:scale-105 active:scale-95 transition-all duration-200"
+          >
+            About Us
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Gallery Strip ─────────────────────────────────────────────── -->
+  <section id="gallery-strip" class="py-20 sm:py-28 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 reveal">
+        <div>
+          <p class="text-terra-500 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-3">Gallery</p>
+          <h2 class="font-display text-3xl sm:text-4xl text-stone-900">A Peek Inside</h2>
+        </div>
+        <a href="/gallery" class="inline-flex items-center gap-2 text-terra-600 font-semibold hover:gap-3 transition-all duration-200 shrink-0">
+          View Gallery
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Real store photo mosaic -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div class="reveal reveal-delay-1 rounded-xl overflow-hidden aspect-square">
+          <a href="/gallery"><Image src={galleryImg1} alt="Snackybara service counter with neon logo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width={400} height={400} /></a>
+        </div>
+        <div class="reveal reveal-delay-2 rounded-xl overflow-hidden row-span-2 col-span-1">
+          <a href="/gallery"><Image src={galleryImg2} alt="Snackybara dining area and service counter" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width={400} height={700} /></a>
+        </div>
+        <div class="reveal reveal-delay-3 rounded-xl overflow-hidden aspect-square">
+          <a href="/gallery"><Image src={galleryImg3} alt="Snackybara counter seating area" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width={400} height={400} /></a>
+        </div>
+        <div class="reveal reveal-delay-4 rounded-xl overflow-hidden col-span-2 md:col-span-2 aspect-[4/3] md:aspect-[2/1]">
+          <a href="/gallery"><Image src={galleryImg4} alt="Snackybara dining area with front window view" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width={800} height={400} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA Banner ────────────────────────────────────────────────── -->
+  <section id="cta-banner" class="relative py-20 sm:py-24 overflow-hidden">
+    <div class="absolute inset-0 cta-bg" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-terra-700/90 to-terra-500/90" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 text-center reveal">
+      <p class="text-terra-200 font-body text-xs uppercase tracking-[0.2em] font-semibold mb-4">Ready to eat?</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-6 leading-tight">
+        Come & Taste the<br/><em class="italic font-normal">Snackybara Difference</em>
+      </h2>
+      <p class="text-terra-100 text-base leading-relaxed mb-10 max-w-md mx-auto">
+        Swing by, place an order, or reach out — we'd love to share a good bite with you.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/menu" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-terra-700 font-semibold hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg">
+          View Our Menu
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/60 text-white font-semibold hover:bg-white/10 hover:border-white hover:scale-105 active:scale-95 transition-all duration-200">
+          Find Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <WhatsAppButton />
 </Layout>
+
+<style>
+  .cta-bg {
+    background: linear-gradient(135deg, #7c2d1e 0%, #9a3f2d 50%, #b85540 100%);
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in { animation: fade-in 0.8s ease forwards; }
+
+  @keyframes scroll-line {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  .animate-scroll-line { animation: scroll-line 2s ease infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in { opacity: 1; transform: none; animation: none; }
+    .animate-scroll-line { animation: none; }
+  }
+</style>
