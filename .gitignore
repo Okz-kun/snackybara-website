@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Windows-specific files
 desktop.ini
 Thumbs.db
+.vercel
